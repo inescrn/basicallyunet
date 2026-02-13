@@ -1,0 +1,34 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "TRAIN",
+            "type": "debugpy",
+            "request": "launch",
+            "program": "${workspaceFolder}/main.py",
+            "console": "integratedTerminal",
+            "args": [
+                "-job",        "TRAIN",
+                "-data_path",  "${workspaceFolder}/dataset/train",
+                "-test_path",  "${workspaceFolder}/dataset/test",
+                "-model_file", "${workspaceFolder}/weights/model.pth",
+                "-log_file",   "${workspaceFolder}/weights/log.csv",
+                "-num_epoch",  "100",
+                "-state_file", "${workspaceFolder}/weights/state_model.pth"
+            ]
+        },
+        {
+            "name": "TEST",
+            "type": "debugpy",
+            "request": "launch",
+            "program": "${workspaceFolder}/main.py",
+            "console": "integratedTerminal",
+            "args": [
+                "-job",        "TEST",
+                "-test_path",  "${workspaceFolder}/dataset/test",
+                "-result_path" , "${workspaceFolder}/results",
+                "-model_file", "${workspaceFolder}/weights/model.pth"
+            ]
+        }
+    ]
+}

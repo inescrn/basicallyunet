@@ -1,0 +1,7 @@
+results/
+weights/
+*.pth
+*.txt
+*.csv
+*.log
+*.pt
