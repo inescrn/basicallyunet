@@ -13,8 +13,16 @@ numImages = 20;
 imgIdx = 1;
 
 %One square to be segmentated
+
+%"Be the square among the circles, and they will segment you."
+% — Unknown author
+
+%Max number of squares
 max_num_sq = 1;
+
+%Max number of circles
 max_num_c = 4;
+
 path = "./dataset/train";
 while imgIdx <= numImages
 
@@ -40,13 +48,9 @@ while imgIdx <= numImages
         fprintf('Different quantities of shapes: Detected %d, Expected %d\n',num, nC + nS + 0);
         
     else
-        % Show and save
-        % figure
-        % imshow(RGB);
         imwrite(RGB, sprintf(path+'/image_%d.png', imgIdx));
         imwrite(Label, sprintf(path+'/label_%d.png', imgIdx));
         imgIdx = imgIdx + 1;
-
     end    
     
 end

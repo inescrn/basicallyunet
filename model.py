@@ -123,32 +123,25 @@ class BasicallyUnet(nn.Module):
 
     def forward(self, inputs):
 
-        ##==========================================================
-        #Run this code with a debugger(top right play figure, choose the derdernier option(debugInTerminalTitle)), place some breakpoints and check the shapes of the tensors at each step. 
-        #This will help you understand, 4cheur, how the data flows through the network and how the dimensions change at each layer.
-        #Use the debug console(bottom left), inspect variables, and step through the code to see how the tensors are transformed.
-        #Like kevin's love life, you don't need to fully understand the layers operation fully. For now just the changes in the dimensions, and how the UNET treat the input and output.
-        #You can do it! This are some commands to help you e1.shape, skip1.shape, e2.shape, skip2.shape, e3.shape, skip3.shape, e4.shape, skip4.shape, bottleneck_out.shape, d1_out.shape, d2_out.shape, d3_out.shape, d4_out.shape.
-        ##==========================================================
         
         # --- Encoder ---
-        e1, skip1 = self.e1(inputs)
-        e2, skip2 = self.e2(e1)
-        e3, skip3 = self.e3(e2)
-        e4, skip4 = self.e4(e3)
+        e1, skip1 = self.e1(inputs) # ---> inputs shape: (batch_size, in_channels, height, width) --> e1 shape: (batch_size, base_channels, height/2, width/2) --> skip1 shape: (batch_size, base_channels, height/2, width/2)
+        e2, skip2 = self.e2(e1) # ---> e1 shape: (batch_size, base_channels, height/2, width/2) --> e2 shape: (batch_size, base_channels*2, height/4, width/4) --> skip2 shape: (batch_size, base_channels*2, height/4, width/4)
+        e3, skip3 = self.e3(e2) # ---> e2 shape: (batch_size, base_channels*2, height/4, width/4) --> e3 shape: (batch_size, base_channels*4, height/8, width/8) --> skip3 shape: (batch_size, base_channels*4, height/8, width/8)
+        e4, skip4 = self.e4(e3) # ---> e3 shape: (batch_size, base_channels*4, height/8, width/8) --> e4 shape: (batch_size, base_channels*8, height/16, width/16) --> skip4 shape: (batch_size, base_channels*8, height/16, width/16)
 
         # --- Bottleneck ---
-        x = self.bottleneck(e4)
-
+        x = self.bottleneck(e4) # ---> e4 shape: (batch_size, base_channels*8, height/16, width/16) --> x shape: (batch_size, base_channels*16, height/16, width/16)
+ 
         # --- Decoder ---
-        x = self.d1(x, skip4)
-        x = self.d2(x, skip3)
-        x = self.d3(x, skip2)
-        x = self.d4(x, skip1)
+        x = self.d1(x, skip4) # ---> x shape: (batch_size, base_channels*16, height/16, width/16) --> skip4 shape: (batch_size, base_channels*8, height/16, width/16) --> x shape after d1: (batch_size, base_channels*8, height/8, width/8)
+        x = self.d2(x, skip3) # ---> x shape: (batch_size, base_channels*8, height/8, width/8) --> skip3 shape: (batch_size, base_channels*4, height/8, width/8) --> x shape after d2: (batch_size, base_channels*4, height/4, width/4)
+        x = self.d3(x, skip2) # ---> x shape: (batch_size, base_channels*4, height/4, width/4) --> skip2 shape: (batch_size, base_channels*2, height/4, width/4) --> x shape after d3: (batch_size, base_channels*2, height/2, width/2)
+        x = self.d4(x, skip1) # ---> x shape: (batch_size, base_channels*2, height/2, width/2) --> skip1 shape: (batch_size, base_channels, height/2, width/2) --> x shape after d4: (batch_size, base_channels, height, width)
         
         # --- Final head --- 
-        x = self.final_conv(x)   
-        x = self.sigmoid(x)      
+        x = self.final_conv(x) # ---> x shape: (batch_size, base_channels, height, width) --> x shape after final_conv: (batch_size, 1, height, width)
+        x = self.sigmoid(x)      # ---> x shape: (batch_size, 1, height, width) --> x shape after sigmoid: (batch_size, 1, height, width)
 
         return x
         

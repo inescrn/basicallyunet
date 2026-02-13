@@ -2,6 +2,10 @@
 
 A U-Net-style convolutional neural network for binary image segmentation, built with PyTorch.
 
+"Be the square among the circles, and they will segment you."
+                                             — Unknown author
+
+
 ---
 
 ## Project Structure
@@ -38,7 +42,10 @@ All images are expected to be **grayscale PNGs**. The dataset loader will automa
 
 ## Model Architecture
 
+This implementation is based on the U-Net architecture from [Ronneberger et al. (2015)](https://arxiv.org/pdf/1505.04597).
+
 `BasicallyUnet` is a 4-level encoder-decoder network with skip connections.
+
 
 ```
 Input (1, H, W)
@@ -154,7 +161,4 @@ After training, the `weights/` folder will contain:
 
 ## License
 
-Copyright © 2025 Etore Maloso Tronconi  
-Embedded Systems & Instrumentation Department  
-École Supérieure d'Ingénieurs — ESIGELEC, France  
-This software is intended for research purposes only. Redistribution is forbidden under any circumstances.
+Copyright © 2025 Etore Maloso Tronconi 
