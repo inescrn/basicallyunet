@@ -36,7 +36,8 @@ label_2.png
 ...
 ```
 
-All images are expected to be **grayscale PNGs**. The dataset loader will automatically pair each `image_N.png` with its corresponding `label_N.png` and warn if any label is missing.
+All images are expected to be **PNGs**. The dataset loader will automatically pair each `image_N.png` with its corresponding `label_N.png` and warn if any label is missing.
+The task for this dataset is that the model can segment a square amoung circles.
 
 ---
 

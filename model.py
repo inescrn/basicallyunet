@@ -123,6 +123,13 @@ class BasicallyUnet(nn.Module):
 
     def forward(self, inputs):
 
+        ##==========================================================
+        #Run this code with a debugger(top right play figure, choose the derdernier option(debugInTerminalTitle)), place some breakpoints and check the shapes of the tensors at each step. 
+        #This will help you understand, 4cheur, how the data flows through the network and how the dimensions change at each layer.
+        #Use the debug console(bottom left), inspect variables, and step through the code to see how the tensors are transformed.
+        #Like kevin's love life, you don't need to fully understand the layers operation fully. For now just the changes in the dimensions, and how the UNET treat the input and output.
+        #You can do it! This are some commands to help you e1.shape, skip1.shape, x.shape.
+        ##==========================================================
         
         # --- Encoder ---
         e1, skip1 = self.e1(inputs) # ---> inputs shape: (batch_size, in_channels, height, width) --> e1 shape: (batch_size, base_channels, height/2, width/2) --> skip1 shape: (batch_size, base_channels, height/2, width/2)
