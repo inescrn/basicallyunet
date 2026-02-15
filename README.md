@@ -160,6 +160,13 @@ After training, the `weights/` folder will contain:
 
 ---
 
+## Contacts
+
+ZapZap 
+Garmin Message: etoremt@gmail.com
+
+---
+
 ## License
 
-Copyright © 2025 Etore Maloso Tronconi 
+Copyright © 2026 OQUETUQUETAMOLECORPORATIONS 
