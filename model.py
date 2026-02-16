@@ -138,7 +138,7 @@ class BasicallyUnet(nn.Module):
         e4, skip4 = self.e4(e3) # ---> e3 shape: (batch_size, base_channels*4, height/8, width/8) --> e4 shape: (batch_size, base_channels*8, height/16, width/16) --> skip4 shape: (batch_size, base_channels*8, height/16, width/16)
 
         # --- Bottleneck ---
-        x = self.bottleneck(e4) # ---> e4 shape: (batch_size, base_channels*8, height/16, width/16) --> x shape: (batch_size, base_channels*16, height/16, width/16)
+        x = self.bottleneck(e4) # ---> e3 shape: (batch_size, base_channels*4, height/8, width/8) --> x shape: (batch_size, base_channels*8, height/8, width/8)
  
         # --- Decoder ---
         x = self.d1(x, skip4) # ---> x shape: (batch_size, base_channels*16, height/16, width/16) --> skip4 shape: (batch_size, base_channels*8, height/16, width/16) --> x shape after d1: (batch_size, base_channels*8, height/8, width/8)
