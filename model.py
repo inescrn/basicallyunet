@@ -16,10 +16,19 @@ class Conv2dBlock(nn.Module):
         self.bn1 = nn.BatchNorm2d(out_channels)
         self.relu1 = nn.ReLU(inplace=True)
 
+        self.con1v2 = nn.Conv2d(out_channels, out_channels, kernel_size=kernel_size,stride=stride, padding=padding, bias=False)
+        self.bn2 = nn.BatchNorm2d(out_channels)
+        self.relu2 = nn.ReLU(inplace=True)
+
+
     def forward(self, x):
         x = self.con1v1(x)
         x = self.bn1(x)
         x = self.relu1(x)
+
+        x = self.con1v2(x)
+        x = self.bn2(x)
+        x = self.relu2(x)
 
         return x
     
